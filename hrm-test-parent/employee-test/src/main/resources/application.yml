@@ -1,0 +1,18 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: employee-service-test
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pethome
+    username: root
+    password: 123456
+logging:
+  file: logs/application-debug.log
+  pattern:
+    console: "%d %-5level %logger %X{requestId}: %msg%n"
+    file: "%d %-5level [%thread] %logger %X{requestId}: %msg%n"
+  level:
+    org.springframework.web: error
+    cn.xavier: trace

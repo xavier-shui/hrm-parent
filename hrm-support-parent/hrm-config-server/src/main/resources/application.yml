@@ -1,0 +1,28 @@
+server:
+  port: 11000
+spring:
+  application:
+    name: hrm-config-server
+  rabbitmq: #集成RabbitMQ如果配置是默认，可以省略
+    host: 47.108.183.122 #mq连接地址
+    port: 5672 #mq端口
+    username: admin
+    password: 5656565788
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/zhengwei-shui/hrm-config.git
+          username: zhengwei-shui
+          password: J7$Iuhi888
+          search-paths: src/main/resources # 如果不是在根路径下面需要加搜索地址
+#actuator配置
+management:
+  endpoint:
+    health:
+      show-details: always #打印日志
+  endpoints:
+    web:
+      exposure:
+        include: "*" #向外暴露的接口，这里*则表示所有的actuator接口都可以被访问
+    enabled-by-default: true  #开启actuator监控

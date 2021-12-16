@@ -27,10 +27,10 @@ public class DepartmentController {
     public AjaxResult addOrUpdate(@RequestBody Department department){
         try {
             if( department.getId()!=null){
-                    departmentService.updateById(department);
+                departmentService.updateById(department);
             }
             else{
-                    departmentService.insert(department);
+                departmentService.insert(department);
             }
             return AjaxResult.me();
         } catch (Exception e) {

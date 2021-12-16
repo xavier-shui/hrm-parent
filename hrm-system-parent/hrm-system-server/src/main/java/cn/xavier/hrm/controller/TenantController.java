@@ -1,8 +1,9 @@
 package cn.xavier.hrm.controller;
 
-import cn.xavier.hrm.service.ITenantService;
 import cn.xavier.hrm.domain.Tenant;
+import cn.xavier.hrm.dto.SettlementDto;
 import cn.xavier.hrm.query.TenantQuery;
+import cn.xavier.hrm.service.ITenantService;
 import cn.xavier.hrm.util.AjaxResult;
 import cn.xavier.hrm.util.PageList;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -17,6 +18,16 @@ public class TenantController {
     @Autowired
     public ITenantService tenantService;
 
+    /**
+     * 机构入驻
+     *
+     * @return the
+     */
+    @PostMapping("/settlement")
+    public AjaxResult settlement(@RequestBody SettlementDto dto) {
+        return tenantService.settlement(dto);
+    }
+
 
     /**
      * 保存和修改公用的
@@ -27,10 +38,10 @@ public class TenantController {
     public AjaxResult addOrUpdate(@RequestBody Tenant tenant){
         try {
             if( tenant.getId()!=null){
-                    tenantService.updateById(tenant);
+                tenantService.updateById(tenant);
             }
             else{
-                    tenantService.insert(tenant);
+                tenantService.insert(tenant);
             }
             return AjaxResult.me();
         } catch (Exception e) {
@@ -83,7 +94,8 @@ public class TenantController {
     public PageList<Tenant> json(@RequestBody TenantQuery query)
     {
         Page<Tenant> page = new Page<Tenant>(query.getPage(),query.getRows());
-        page = tenantService.selectPage(page);
+        // page = tenantService.selectPage(page);
+        page = tenantService.queryTenantList(page, query);
         return new PageList<Tenant>(page.getTotal(),page.getRecords());
     }
 }

@@ -27,10 +27,10 @@ public class ${entity}Controller {
     public AjaxResult addOrUpdate(@RequestBody ${entity} ${table.entityPath}){
         try {
             if( ${table.entityPath}.getId()!=null){
-                    ${table.entityPath}Service.updateById(${table.entityPath});
+                ${table.entityPath}Service.updateById(${table.entityPath});
             }
             else{
-                    ${table.entityPath}Service.insert(${table.entityPath});
+                ${table.entityPath}Service.insert(${table.entityPath});
             }
             return AjaxResult.me();
         } catch (Exception e) {

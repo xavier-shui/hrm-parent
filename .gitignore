@@ -23,3 +23,7 @@
 hs_err_pid*
 privacy.txt
 target/
+logs/
+hrm-website-parent/
+.idea/
+*.iml

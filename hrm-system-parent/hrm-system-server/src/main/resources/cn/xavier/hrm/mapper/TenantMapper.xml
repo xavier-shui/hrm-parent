@@ -15,4 +15,44 @@
         <result column="admin_id" property="adminId" />
     </resultMap>
 
+    <!--List<Tenant> loadTenantList(Page<Tenant> page, TenantQuery query);-->
+    <select id="loadTenantList" resultMap="tenantMap">
+        SELECT
+            t1.*,
+            t2.id AS tid,
+            t2.name,
+            t2.description
+        FROM
+            t_tenant AS t1
+            JOIN
+            t_tenant_type AS t2
+                ON t1.tenant_type_id = t2.id
+        <include refid="whereSql"/>
+    </select>
+
+    <sql id="whereSql">
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND company_name LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </where>
+    </sql>
+
+    <resultMap id="tenantMap" type="Tenant">
+        <id column="id" property="id" />
+        <result column="tenant_type_id" property="tenantTypeId" />
+        <result column="company_name" property="companyName" />
+        <result column="company_num" property="companyNum" />
+        <result column="register_time" property="registerTime" />
+        <result column="state" property="state" />
+        <result column="address" property="address" />
+        <result column="logo" property="logo" />
+        <result column="admin_id" property="adminId" />
+        <association property="tenantType" javaType="TenantType">
+            <id column="tid" property="id" />
+            <result column="name" property="name"/>
+            <result column="description" property="description"/>
+        </association>
+    </resultMap>
+
 </mapper>

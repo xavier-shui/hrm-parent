@@ -27,10 +27,10 @@ public class TenantTypeController {
     public AjaxResult addOrUpdate(@RequestBody TenantType tenantType){
         try {
             if( tenantType.getId()!=null){
-                    tenantTypeService.updateById(tenantType);
+                tenantTypeService.updateById(tenantType);
             }
             else{
-                    tenantTypeService.insert(tenantType);
+                tenantTypeService.insert(tenantType);
             }
             return AjaxResult.me();
         } catch (Exception e) {

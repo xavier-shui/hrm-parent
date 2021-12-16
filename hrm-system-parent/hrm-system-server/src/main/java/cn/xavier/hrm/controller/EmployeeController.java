@@ -27,10 +27,10 @@ public class EmployeeController {
     public AjaxResult addOrUpdate(@RequestBody Employee employee){
         try {
             if( employee.getId()!=null){
-                    employeeService.updateById(employee);
+                employeeService.updateById(employee);
             }
             else{
-                    employeeService.insert(employee);
+                employeeService.insert(employee);
             }
             return AjaxResult.me();
         } catch (Exception e) {

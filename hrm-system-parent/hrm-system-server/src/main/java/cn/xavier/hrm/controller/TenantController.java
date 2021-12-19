@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,8 +24,8 @@ public class TenantController {
      *
      * @return the
      */
-    @PostMapping("/settlement")
-    public AjaxResult settlement(@RequestBody SettlementDto dto) {
+    @PostMapping("/settlement") // @Valid， 入参不要写BindingResult，否则异常会被捕获
+    public AjaxResult settlement(@RequestBody @Valid SettlementDto dto) {
         return tenantService.settlement(dto);
     }
 

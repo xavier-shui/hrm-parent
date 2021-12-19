@@ -3,11 +3,13 @@ package cn.xavier.hrm.feign;
 import cn.xavier.hrm.domain.LoginUser;
 import cn.xavier.hrm.util.AjaxResult;
 import feign.hystrix.FallbackFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Zheng-Wei Shui
  * @date 12/16/2021
  */
+@Component
 public class LoginUserFallbackFactory implements FallbackFactory<ILoginUserFeignClient> {
     @Override
     public ILoginUserFeignClient create(Throwable cause) {

@@ -5,6 +5,17 @@ public class AjaxResult {
     private boolean success = true;
     private String message = "操作成功!";
 
+    // 状态码
+    private Integer code;
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public AjaxResult setCode(Integer code) {
+        this.code = code;
+        return this;
+    }
 
     //返回到前台对象
     private Object resultObj;

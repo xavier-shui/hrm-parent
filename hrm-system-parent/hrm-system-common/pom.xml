@@ -11,9 +11,10 @@
 
     <artifactId>hrm-system-common</artifactId>
     <dependencies>
+        <!--无需starter自动配置, system-server用时hrm-auth-common里有-->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <artifactId>mybatis-plus</artifactId>
             <version>2.2.0</version>
         </dependency>
         <dependency>

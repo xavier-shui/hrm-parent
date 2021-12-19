@@ -27,3 +27,6 @@ logs/
 hrm-website-parent/
 .idea/
 *.iml
+.stignore
+hrm-config/
+.stfolder/

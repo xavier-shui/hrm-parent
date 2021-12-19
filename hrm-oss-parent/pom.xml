@@ -9,12 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hrm-test-parent</artifactId>
+    <artifactId>hrm-oss-parent</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>mybatisplus-test-codegen</module>
-        <module>employee-test</module>
-        <module>oss-test</module>
+        <module>hrm-oss-server</module>
     </modules>
 
 

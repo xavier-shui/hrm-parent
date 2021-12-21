@@ -1,7 +1,8 @@
 package cn.xavier.hrm.util;
 
 //Ajax请求响应对象的类
-public class AjaxResult {
+//  implements Serializable 有配置Json序列化时可以不写
+public class AjaxResult{
     private boolean success = true;
     private String message = "操作成功!";
 

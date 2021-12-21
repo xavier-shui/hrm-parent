@@ -15,9 +15,9 @@ import java.util.*;
  */
 public class GenteratorCode {
 
-    private static final String RESOURCE_BUNDLE = "mybatisplus-auth-config";
+    private static final String RESOURCE_BUNDLE = "mybatisplus-course-config";
     // 需要生成的表
-    private static String[] tables = new String[] {"t_login_user", "t_meal", "t_user_meal"};
+    private static String[] tables = new String[] {"t_course", "t_course_detail", "t_course_market", "t_course_type"};
 
 
     public static void main(String[] args) throws InterruptedException {

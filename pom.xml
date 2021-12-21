@@ -15,6 +15,7 @@
         <module>hrm-system-parent</module>
         <module>hrm-auth-parent</module>
         <module>hrm-oss-parent</module>
+        <module>hrm-course-parent</module>
     </modules>
 
     <!--管理一些公共的属性-->

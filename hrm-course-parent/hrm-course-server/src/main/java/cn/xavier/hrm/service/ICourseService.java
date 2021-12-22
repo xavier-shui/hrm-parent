@@ -1,7 +1,11 @@
 package cn.xavier.hrm.service;
 
 import cn.xavier.hrm.domain.Course;
+import cn.xavier.hrm.dto.CourseDto;
+import cn.xavier.hrm.util.AjaxResult;
 import com.baomidou.mybatisplus.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,9 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface ICourseService extends IService<Course> {
 
+    AjaxResult save(CourseDto dto);
+
+    AjaxResult onlineCourse(List<Long> ids);
+
+    AjaxResult offlineCourse(List<Long> ids);
 }

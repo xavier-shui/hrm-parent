@@ -23,6 +23,7 @@ public class RestControllerExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public AjaxResult exceptionHandler(RuntimeException e) {
+        e.printStackTrace();
         return AjaxResult.me().setSuccess(false).setMessage(e.getMessage());
     }
 

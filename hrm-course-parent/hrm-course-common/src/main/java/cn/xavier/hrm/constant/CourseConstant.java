@@ -6,4 +6,6 @@ package cn.xavier.hrm.constant;
  */
 public interface CourseConstant {
     String COURSE_TYPE = "course_type";
+    Integer OFFLINE = 0;
+    Integer ONLINE = 1;
 }

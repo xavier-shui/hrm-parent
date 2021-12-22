@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>hrm-course-parent</artifactId>
+        <artifactId>hrm-search-parent</artifactId>
         <groupId>cn.xavier</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hrm-course-server</artifactId>
+    <artifactId>hrm-search-server</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -44,14 +44,8 @@
 
         <dependency>
             <groupId>cn.xavier</groupId>
-            <artifactId>hrm-course-common</artifactId>
+            <artifactId>hrm-search-common</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <!--mySql驱动-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
         <!--引入swagger支持-->
@@ -66,21 +60,11 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
         </dependency>
-        <!--spirngboot springdata对redis支持-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>cn.xavier</groupId>
-            <artifactId>hrm-search-common</artifactId>
+            <artifactId>hrm-basic-util</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <!--feign的支持, 包含了ribbon， hystrix-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
     </dependencies>
 

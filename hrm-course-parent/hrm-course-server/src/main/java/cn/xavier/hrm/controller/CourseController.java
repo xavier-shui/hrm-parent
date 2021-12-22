@@ -1,8 +1,9 @@
 package cn.xavier.hrm.controller;
 
-import cn.xavier.hrm.service.ICourseService;
 import cn.xavier.hrm.domain.Course;
+import cn.xavier.hrm.dto.CourseDto;
 import cn.xavier.hrm.query.CourseQuery;
+import cn.xavier.hrm.service.ICourseService;
 import cn.xavier.hrm.util.AjaxResult;
 import cn.xavier.hrm.util.PageList;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -84,5 +85,33 @@ public class CourseController {
         Page<Course> page = new Page<Course>(query.getPage(),query.getRows());
         page = courseService.selectPage(page);
         return new PageList<Course>(page.getTotal(),page.getRecords());
+    }
+
+    @PostMapping("/save")
+    public AjaxResult save(@RequestBody CourseDto dto)
+    {
+        return courseService.save(dto);
+    }
+
+    /**
+     * 上线课程
+     *
+     * @param ids ids
+     * @return the ajax result
+     */
+    @PostMapping("/onlineCourse")
+    public AjaxResult onlineCourse(@RequestBody List<Long> ids) {
+        return courseService.onlineCourse(ids);
+    }
+
+    /**
+     * 下线课程
+     *
+     * @param ids ids
+     * @return the ajax result
+     */
+    @PostMapping("/offlineCourse")
+    public AjaxResult offlineCourse(@RequestBody List<Long> ids) {
+        return courseService.offlineCourse(ids);
     }
 }

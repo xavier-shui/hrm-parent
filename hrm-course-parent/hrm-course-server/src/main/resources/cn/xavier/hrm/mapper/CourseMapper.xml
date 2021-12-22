@@ -23,4 +23,11 @@
         <result column="comment_count" property="commentCount" />
     </resultMap>
 
+    <!--void batchUpdateStatus(@Param("ids") List<Long> ids, @Param("status") Integer status);-->
+    <update id="batchUpdateStatus">
+        UPDATE t_course SET status = #{status} WHERE id IN 
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
 </mapper>

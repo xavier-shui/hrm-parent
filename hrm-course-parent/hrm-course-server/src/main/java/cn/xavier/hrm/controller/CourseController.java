@@ -2,6 +2,7 @@ package cn.xavier.hrm.controller;
 
 import cn.xavier.hrm.domain.Course;
 import cn.xavier.hrm.dto.CourseDto;
+import cn.xavier.hrm.query.CourseDocQuery;
 import cn.xavier.hrm.query.CourseQuery;
 import cn.xavier.hrm.service.ICourseService;
 import cn.xavier.hrm.util.AjaxResult;
@@ -113,5 +114,10 @@ public class CourseController {
     @PostMapping("/offlineCourse")
     public AjaxResult offlineCourse(@RequestBody List<Long> ids) {
         return courseService.offlineCourse(ids);
+    }
+
+    @PostMapping("/queryCourses")
+    public AjaxResult queryCourses(@RequestBody CourseDocQuery courseDocQuery) {
+        return courseService.queryCourses(courseDocQuery);
     }
 }

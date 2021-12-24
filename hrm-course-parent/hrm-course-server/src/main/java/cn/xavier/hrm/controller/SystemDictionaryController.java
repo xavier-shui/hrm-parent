@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 写到系统模块更适合！！
+ */
 @RestController
 @RequestMapping("/systemDictionary")
 public class SystemDictionaryController {

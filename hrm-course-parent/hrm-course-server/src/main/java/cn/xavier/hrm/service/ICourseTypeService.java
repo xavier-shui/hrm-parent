@@ -2,7 +2,10 @@ package cn.xavier.hrm.service;
 
 import cn.xavier.hrm.domain.CourseType;
 import cn.xavier.hrm.util.AjaxResult;
+import cn.xavier.hrm.vo.CrumbsVo;
 import com.baomidou.mybatisplus.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,4 +22,6 @@ public interface ICourseTypeService extends IService<CourseType> {
      * @return the tree data
      */
     AjaxResult getTreeData();
+
+    AjaxResult getCrumbs(Long courseTypeId);
 }

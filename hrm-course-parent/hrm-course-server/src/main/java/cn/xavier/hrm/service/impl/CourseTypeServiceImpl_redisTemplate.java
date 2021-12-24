@@ -5,6 +5,9 @@ import cn.xavier.hrm.domain.CourseType;
 import cn.xavier.hrm.mapper.CourseTypeMapper;
 import cn.xavier.hrm.service.ICourseTypeService;
 import cn.xavier.hrm.util.AjaxResult;
+import cn.xavier.hrm.util.ValidUtils;
+import cn.xavier.hrm.vo.CrumbsVo;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +94,25 @@ public class CourseTypeServiceImpl_redisTemplate extends ServiceImpl<CourseTypeM
             return getTreeData(); // 继续尝试从缓存获取
         }
 
+    }
+
+    @Override
+    public AjaxResult getCrumbs(Long courseTypeId) {
+        ValidUtils.assertNotNull(courseTypeId, "类型id不能为空");
+        CourseType type = courseTypeMapper.selectById(courseTypeId);
+        String[] ids = type.getPath().split("\\.");
+        List<CrumbsVo> result = new ArrayList<>();
+        for (String id:ids) {
+            // 查自己
+            CourseType own = courseTypeMapper.selectById(Long.valueOf(id));
+            // 查同级, 不含自己
+            EntityWrapper<CourseType> wrapper = new EntityWrapper<>();
+            wrapper.eq("pid", own.getPid()).and().ne("id", own.getId());
+            List<CourseType> siblings = courseTypeMapper.selectList(wrapper);
+            // 封装VO
+            result.add(new CrumbsVo(own, siblings));
+        }
+        return AjaxResult.me().setResultObj(result);
     }
 
     // 增删改时，清空缓存，下次从数据库中拿数据

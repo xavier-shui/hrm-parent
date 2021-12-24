@@ -1,6 +1,7 @@
 package cn.xavier.hrm.feign;
 
 import cn.xavier.hrm.doc.CourseDoc;
+import cn.xavier.hrm.query.CourseDocQuery;
 import cn.xavier.hrm.util.AjaxResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,4 +22,7 @@ public interface ICourseDocFeignClient {
 
     @PostMapping("/offlineCourse")
     AjaxResult offlineCourse(@RequestBody List<CourseDoc> courseDocs);
+
+    @PostMapping("/queryCourses")
+    AjaxResult queryCourses(@RequestBody CourseDocQuery courseDocQuery);
 }

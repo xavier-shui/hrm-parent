@@ -1,6 +1,7 @@
 package cn.xavier.hrm.feign;
 
 import cn.xavier.hrm.doc.CourseDoc;
+import cn.xavier.hrm.query.CourseDocQuery;
 import cn.xavier.hrm.util.AjaxResult;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,13 @@ public class CourseDocFallbackFactory implements FallbackFactory<ICourseDocFeign
                 return AjaxResult.me()
                         .setSuccess(false)
                         .setMessage("课程下架失败");
+            }
+
+            @Override
+            public AjaxResult queryCourses(CourseDocQuery courseDocQuery) {
+                return AjaxResult.me()
+                        .setSuccess(false)
+                        .setMessage("课程搜索失败");
             }
         };
     }

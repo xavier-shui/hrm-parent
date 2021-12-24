@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class CourseType extends Model<CourseType> {
     private Integer totalCount;
 
     @TableField(exist = false)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY) // 转JSON的时候不处理空值字段
     private List<CourseType> children = new ArrayList<>();
 
     public List<CourseType> getChildren() {

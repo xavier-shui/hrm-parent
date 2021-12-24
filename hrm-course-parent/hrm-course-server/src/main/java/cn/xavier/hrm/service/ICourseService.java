@@ -2,6 +2,7 @@ package cn.xavier.hrm.service;
 
 import cn.xavier.hrm.domain.Course;
 import cn.xavier.hrm.dto.CourseDto;
+import cn.xavier.hrm.query.CourseDocQuery;
 import cn.xavier.hrm.util.AjaxResult;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -22,4 +23,6 @@ public interface ICourseService extends IService<Course> {
     AjaxResult onlineCourse(List<Long> ids);
 
     AjaxResult offlineCourse(List<Long> ids);
+
+    AjaxResult queryCourses(CourseDocQuery courseDocQuery);
 }

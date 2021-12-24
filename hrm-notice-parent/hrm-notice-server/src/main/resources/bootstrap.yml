@@ -1,0 +1,14 @@
+spring:
+  rabbitmq: #集成RabbitMQ如果配置是默认，可以省略
+    host: 47.108.183.122 #mq连接地址
+    port: 5672 #mq端口
+    username: admin
+    password: 5656565788
+  cloud:
+    config:
+      name: application-notice #gitee上面名称
+      profile: dev #环境
+      label: master #分支
+      uri: http://47.108.183.122:11000 #配置服务器
+    bus: #这行代码很重要，根据官方定义的标准来的 ,就是为了产生一个bus.id
+      id: ${spring.application.name}:${spring.cloud.config.profile}:${random.value}

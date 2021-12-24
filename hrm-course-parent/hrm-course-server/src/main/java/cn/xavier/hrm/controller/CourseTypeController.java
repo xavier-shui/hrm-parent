@@ -1,10 +1,11 @@
 package cn.xavier.hrm.controller;
 
-import cn.xavier.hrm.service.ICourseTypeService;
 import cn.xavier.hrm.domain.CourseType;
 import cn.xavier.hrm.query.CourseTypeQuery;
+import cn.xavier.hrm.service.ICourseTypeService;
 import cn.xavier.hrm.util.AjaxResult;
 import cn.xavier.hrm.util.PageList;
+import cn.xavier.hrm.vo.CrumbsVo;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -89,5 +90,14 @@ public class CourseTypeController {
         Page<CourseType> page = new Page<CourseType>(query.getPage(),query.getRows());
         page = courseTypeService.selectPage(page);
         return new PageList<CourseType>(page.getTotal(),page.getRecords());
+    }
+
+    /**
+     * 查看面包屑
+     * @return
+     */
+    @GetMapping("/crumbs/{courseTypeId}")
+    public AjaxResult getCrumbs(@PathVariable("courseTypeId") Long courseTypeId){
+        return courseTypeService.getCrumbs(courseTypeId);
     }
 }

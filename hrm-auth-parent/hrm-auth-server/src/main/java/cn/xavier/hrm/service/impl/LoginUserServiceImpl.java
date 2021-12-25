@@ -39,4 +39,10 @@ public class LoginUserServiceImpl extends ServiceImpl<LoginUserMapper, LoginUser
         userMealMapper.insert(userMeal);
         return AjaxResult.me().setResultObj(loginId);
     }
+
+    @Override
+    public AjaxResult register(LoginUser loginUser) {
+        loginUserMapper.insert(loginUser);
+        return AjaxResult.me().setResultObj(loginUser.getId());
+    }
 }

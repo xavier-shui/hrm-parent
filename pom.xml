@@ -18,6 +18,7 @@
         <module>hrm-course-parent</module>
         <module>hrm-search-parent</module>
         <module>hrm-notice-parent</module>
+        <module>hrm-user-parent</module>
     </modules>
 
     <!--管理一些公共的属性-->

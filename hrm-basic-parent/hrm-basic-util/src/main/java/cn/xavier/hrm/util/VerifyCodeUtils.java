@@ -200,19 +200,18 @@ public class VerifyCodeUtils {
     }
  
     /**
-     * 获取随机验证码及其加密图片
+     * 获取加密图片为base64编码
      *
      */
-    public static String VerifyCode(int w, int h, int size) throws IOException {
+    public static String getVerifyCodeBase64(int w, int h, String code) throws IOException {
         BASE64Encoder encoder = new BASE64Encoder();
-        String code = generateVerifyCode(size).toLowerCase();
+        code = code.toLowerCase();
         ByteArrayOutputStream data = new ByteArrayOutputStream();
         outputImage(w, h, data, code);
         return encoder.encode(data.toByteArray());
     }
 
     public static void main(String[] args) throws  Exception{
-        System.out.println(VerifyCode(100, 30, 6));
 
     }
 }

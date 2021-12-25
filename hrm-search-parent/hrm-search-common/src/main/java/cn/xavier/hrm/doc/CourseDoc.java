@@ -29,7 +29,8 @@ public class CourseDoc {
     //课程类型
     @Field(type = FieldType.Long)
     private Long courseTypeId;
-    @Field(type = FieldType.Text,analyzer = "ik_smart",searchAnalyzer = "ik_smart")
+    // 支持聚合
+    @Field(type = FieldType.Text,analyzer = "ik_smart",searchAnalyzer = "ik_smart", fielddata = true)
     private String courseTypeName;
     //等级名
     @Field(type = FieldType.Keyword)

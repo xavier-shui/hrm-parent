@@ -18,7 +18,7 @@ public class LoginUserController {
     public ILoginUserService loginUserService;
 
     /**
-     *
+     * 机构入驻
      * @return the ajax result
      */
     @PostMapping("/settlement")
@@ -26,6 +26,16 @@ public class LoginUserController {
         return loginUserService.settlement(loginUser);
     }
 
+    /**
+     * 用户注册
+     *
+     * @param loginUser login user
+     * @return the ajax result
+     */
+    @PostMapping("/register")
+    public AjaxResult register(@RequestBody LoginUser loginUser) {
+        return loginUserService.register(loginUser);
+    }
     /**
      * 保存和修改公用的
      * @param loginUser  传递的实体

@@ -3,27 +3,24 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>hrm-basic-parent</artifactId>
+        <artifactId>hrm-user-parent</artifactId>
         <groupId>cn.xavier</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hrm-basic-common</artifactId>
+    <artifactId>hrm-user-common</artifactId>
     <dependencies>
+        <!--无需starter自动配置, system-server用时hrm-auth-common里有-->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.8</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>2.2.0</version>
         </dependency>
         <dependency>
             <groupId>cn.xavier</groupId>
-            <artifactId>hrm-basic-util</artifactId>
+            <artifactId>hrm-basic-common</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 

@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.service.IService;
 public interface ILoginUserService extends IService<LoginUser> {
 
     AjaxResult settlement(LoginUser loginUser);
+
+    AjaxResult register(LoginUser loginUser);
 }

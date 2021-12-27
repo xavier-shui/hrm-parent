@@ -1,0 +1,10 @@
+server:
+  port: 11010
+spring:
+  application:
+    name: security-server
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.108.183.122:3306/hrm_auth?useSSL=false
+    username: hrm_auth
+    password: n8YzRHYFMtMnzGss

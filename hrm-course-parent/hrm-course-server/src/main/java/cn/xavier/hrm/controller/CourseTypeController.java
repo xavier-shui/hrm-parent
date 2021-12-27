@@ -5,7 +5,6 @@ import cn.xavier.hrm.query.CourseTypeQuery;
 import cn.xavier.hrm.service.ICourseTypeService;
 import cn.xavier.hrm.util.AjaxResult;
 import cn.xavier.hrm.util.PageList;
-import cn.xavier.hrm.vo.CrumbsVo;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,8 @@ public class CourseTypeController {
 
     @GetMapping("/treeData")
     public AjaxResult treeData() {
-        return courseTypeService.getTreeData();
+        return
+                courseTypeService.getTreeData();
     }
 
     /**

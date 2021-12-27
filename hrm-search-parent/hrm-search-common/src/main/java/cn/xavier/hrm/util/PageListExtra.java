@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 //分页对象：easyui只需两个属性，total(总数),datas（分页数据）就能实现分页
+// 因为hrm-basic-util项目下包名相同，所以不能extends PageList<T>
 public class PageListExtra<T> {
     private long total;
     private List<T> rows = new ArrayList<>();

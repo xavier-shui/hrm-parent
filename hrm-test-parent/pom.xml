@@ -15,6 +15,7 @@
         <module>mybatisplus-test-codegen</module>
         <module>employee-test</module>
         <module>oss-test</module>
+        <module>springsecurity-test</module>
     </modules>
 
 

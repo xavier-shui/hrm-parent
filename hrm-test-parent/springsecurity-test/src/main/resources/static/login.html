@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>登陆</title>
+    <script type="application/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 </head>
 <body>
 <h1>登陆</h1>
@@ -20,5 +21,33 @@
         <button type="submit">立即登陆</button>
     </div>
 </form>
+<h1>手机验证码登录</h1>
+<form method="post" action="/smsLogin">
+    <div>
+        手机号：<input type="text" name="phone" id="phone">
+    </div>
+    <div>
+        验证码：<input type="text" name="code">   <button type="button"  id="sendBtn" >发送验证码</button>
+    </div>
+    <div>
+        <button type="submit">立即登陆</button>
+    </div>
+    <div class="checkbox">
+        <label><input type="checkbox" id="rememberme" name="remember-me"/>记住我</label>
+    </div>
+</form>
+</body>
+<script type="application/javascript">
+
+    $(function () {
+        $("#sendBtn").click(function () {
+            var phone = $("#phone").val();
+            $.post("/sms/send/"+phone,{},function (result) {
+                alert("验证码发送成功");
+            });
+        });
+    });
+</script>
+</html>
 </body>
 </html>

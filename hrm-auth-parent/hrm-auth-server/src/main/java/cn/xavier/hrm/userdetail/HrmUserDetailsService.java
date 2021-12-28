@@ -3,7 +3,6 @@ package cn.xavier.hrm.userdetail;
 import cn.xavier.hrm.domain.LoginUser;
 import cn.xavier.hrm.domain.Permission;
 import cn.xavier.hrm.mapper.LoginUserMapper;
-import cn.xavier.hrm.mapper.PermissionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -14,18 +13,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Zheng-Wei Shui
- * @date 12/26/2021
+ * @date 12/28/2021
  */
 @Service
-public class LoginUserDetailService implements UserDetailsService {
+public class HrmUserDetailsService implements UserDetailsService {
     @Autowired
     private LoginUserMapper loginUserMapper;
-
-    @Autowired
-    private PermissionMapper permissionMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,16 +30,10 @@ public class LoginUserDetailService implements UserDetailsService {
         loginUser.setUsername(username);
         loginUser = loginUserMapper.selectOne(loginUser);
         if (loginUser == null) {
-            throw new UsernameNotFoundException("username not found");
+            throw new UsernameNotFoundException("用户名不存在!");
         }
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        List<Permission> permissions = permissionMapper.loadUserPermissions(loginUser.getId());
-        permissions.stream().forEach(permission -> {
-            System.out.println("授权: " + permission);
-            // perimission 转 SimpleGrantedAuthority
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(permission.getSn());
-            authorities.add(authority);
-        });
+        List<Permission> permissions = loginUserMapper.loadUserPermissions(loginUser.getId());
+        List<SimpleGrantedAuthority> authorities = permissions.stream().map(permission -> new SimpleGrantedAuthority(permission.getSn())).collect(Collectors.toList());
         return new User(loginUser.getUsername(), loginUser.getPassword(), authorities);
     }
 }

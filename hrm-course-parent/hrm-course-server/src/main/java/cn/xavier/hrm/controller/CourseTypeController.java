@@ -19,8 +19,7 @@ public class CourseTypeController {
 
     @GetMapping("/treeData")
     public AjaxResult treeData() {
-        return
-                courseTypeService.getTreeData();
+        return courseTypeService.getTreeData();
     }
 
     /**

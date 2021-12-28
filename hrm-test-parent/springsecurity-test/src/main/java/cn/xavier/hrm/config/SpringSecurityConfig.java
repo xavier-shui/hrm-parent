@@ -4,6 +4,7 @@ import cn.xavier.hrm.authenticationhandler.MyAuthenticationFailureHandler;
 import cn.xavier.hrm.authenticationhandler.MyAuthenticationSuccessHandler;
 import cn.xavier.hrm.authorizationhandler.MyAccessDeniedHandler;
 import cn.xavier.hrm.authorizationhandler.MyAuthenticationEntryPoint;
+import cn.xavier.hrm.filter.SmsCodeCheckFilter;
 import cn.xavier.hrm.mapper.PermissionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -43,6 +45,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private SmsAuthConfig smsAuthConfig;
 
 /*
     @Override
@@ -73,7 +78,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             expressionInterceptUrlRegistry.antMatchers(permission.getResource()).hasAuthority(permission.getSn());
         });*/
         expressionInterceptUrlRegistry //授权配置
-                .antMatchers("/login").permitAll()  //登录路径放行
+                .antMatchers("/login", "/sms/send/*", "/smsLogin").permitAll()  //登录路径放行
                 .antMatchers("/login.html").permitAll() //对登录页面跳转路径放行(配置自己的登录页面需要)
                 .anyRequest().authenticated()  //其他路径都要认证
                 .and().formLogin()  //允许表单登录
@@ -93,6 +98,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenRepository(persistentTokenRepository())	//持久
                 .tokenValiditySeconds(3600)	//过期时间
                 .userDetailsService(userDetailsService); //用来加载用户认证信息的
+
+        //验证码检查的filter
+        SmsCodeCheckFilter smsCodeCheckFilter = new SmsCodeCheckFilter();
+        smsCodeCheckFilter.setMyAuthenticationFailureHandler(failureHandler);
+        //添加验证码检查的filter
+        http.addFilterBefore(smsCodeCheckFilter, UsernamePasswordAuthenticationFilter.class);
+
+        // 验证码登录的
+        http.apply(smsAuthConfig);
     }
 
     @Bean
@@ -103,4 +117,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         // obj.setCreateTableOnStartup(true);
         return obj;
     }
+
 }

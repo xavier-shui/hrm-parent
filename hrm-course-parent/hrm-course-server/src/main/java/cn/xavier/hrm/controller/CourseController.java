@@ -9,6 +9,7 @@ import cn.xavier.hrm.util.AjaxResult;
 import cn.xavier.hrm.util.PageList;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -81,6 +82,7 @@ public class CourseController {
     * @return PageList 分页对象
     */
     @PostMapping("/list")
+    @PreAuthorize("hasAnyAuthority('employee:list')")
     public PageList<Course> json(@RequestBody CourseQuery query)
     {
         Page<Course> page = new Page<Course>(query.getPage(),query.getRows());

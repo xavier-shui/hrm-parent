@@ -1,6 +1,6 @@
-/*
 package cn.xavier.hrm.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -9,8 +9,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
@@ -21,50 +19,25 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableResourceServer
 //开启方法授权
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
-    //1.资源服务安全配置
+public class BasicResourceServerConfig extends ResourceServerConfigurerAdapter {
+    //设置JWT签名密钥。它可以是简单的MAC密钥，也可以是RSA密钥
+    private final String sign_key  = "1";
 
-    //1.1资源服务令牌验证服务,通过远程校验令牌
-    @Bean
-    public ResourceServerTokenServices resourceServerTokenServices(){
-        //使用远程服务请求授权服务器校验token ， 即：资源服务和授权服务器不在一个主机
-        RemoteTokenServices services = new RemoteTokenServices();
-        //授权服务地址 , 当浏览器访问某个资源时就会调用该远程授权服务地址去校验token
-        //要求请求中必须携带token
-        services.setCheckTokenEndpointUrl("http://47.108.183.122:11004/oauth/check_token");
-        //客户端id，对应认证服务的客户端详情配置的clientId
-        services.setClientId("admin");
-        //密钥，对应认证服务的客户端详情配置的clientId
-        services.setClientSecret("1");
-        return services;
-    }
+    @Value("${oauth2.resourceId}")
+    private String resourceId;
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-       */
-/* //我的资源名称是什么
-        resources.resourceId("courseId");
-        //用来校验，解析Token的服务
-        resources.tokenServices(resourceServerTokenServices());*//*
-
-        //资源ID
-        resources.resourceId("courseId")
+        resources.resourceId(resourceId)
                 .tokenStore(tokenStore())
-                //验证令牌的服务，令牌验证通过才允许获取资源
-                //.tokenServices(resourceServerTokenServices())
-                //无状态
-                .stateless(true);
+                .stateless(true); //无状态
 
     }
-
     //修改JWT令牌
     @Bean
     public TokenStore tokenStore(){
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
-
-    //设置JWT签名密钥。它可以是简单的MAC密钥，也可以是RSA密钥
-    private final String sign_key  = "1";
 
     //JWT令牌校验工具
     @Bean
@@ -80,11 +53,11 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 //校验scope必须为all ， 对应认证服务的客户端详情配置的clientId
+                .antMatchers("/swagger-resources/**","/webjars/**","/v2/**","/swagger-ui.html/**").permitAll()  // swagger路径放行， 必须放到scope前面
                 .antMatchers("/**").access("#oauth2.hasScope('hrm')")
-                .antMatchers("/swagger-resources/**","/webjars/**","/v2/**","/swagger-ui.html/**").permitAll()  // swagger路径放行
                 //关闭跨域伪造检查
                 .and().csrf().disable()
                 //把session设置为无状态，意思是使用了token，那么session不再做数据的记录
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
-}*/
+}

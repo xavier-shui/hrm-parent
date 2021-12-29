@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,6 +50,7 @@ public class CourseDocController {
     private ElasticsearchTemplate elasticsearchTemplate;
 
     @PostMapping("/onlineCourse")
+    @PreAuthorize("hasAuthority('courseDoc:add')")
     public AjaxResult onlineCourse(@RequestBody List<CourseDoc> courseDocs) {
         repository.saveAll(courseDocs);
         return AjaxResult.me();

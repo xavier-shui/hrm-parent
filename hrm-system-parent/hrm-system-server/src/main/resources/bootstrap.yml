@@ -12,3 +12,5 @@ spring:
       uri: http://47.108.183.122:11000 #配置服务器
     bus: #这行代码很重要，根据官方定义的标准来的 ,就是为了产生一个bus.id
       id: ${spring.application.name}:${spring.cloud.config.profile}:${random.value}
+oauth2:
+  resourceId: systemId

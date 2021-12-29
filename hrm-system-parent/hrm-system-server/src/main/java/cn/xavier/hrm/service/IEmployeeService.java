@@ -1,6 +1,7 @@
 package cn.xavier.hrm.service;
 
 import cn.xavier.hrm.domain.Employee;
+import cn.xavier.hrm.util.AjaxResult;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IEmployeeService extends IService<Employee> {
 
+    AjaxResult findUserInfoByLoginId(Long id);
 }

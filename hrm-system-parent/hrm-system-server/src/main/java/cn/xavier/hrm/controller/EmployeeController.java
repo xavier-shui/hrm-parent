@@ -17,6 +17,10 @@ public class EmployeeController {
     @Autowired
     public IEmployeeService employeeService;
 
+    @GetMapping("/findUserInfoByLoginId/{id}")
+    public AjaxResult findUserInfoByLoginId(@PathVariable("id") Long id) {
+        return employeeService.findUserInfoByLoginId(id);
+    }
 
     /**
      * 保存和修改公用的

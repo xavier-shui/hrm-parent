@@ -15,15 +15,19 @@ import cn.xavier.hrm.query.CourseDocQuery;
 import cn.xavier.hrm.service.ICourseService;
 import cn.xavier.hrm.util.AjaxResult;
 import cn.xavier.hrm.util.ValidUtils;
+import cn.xavier.hrm.vo.UserInfo;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import static cn.xavier.hrm.constant.RabbitMqConstant.*;
 
 /**
@@ -49,10 +53,19 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private ICourseDocFeignClient client;
     @Autowired
     private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @Override
     public AjaxResult save(CourseDto dto) {
         // 保存三张表，共享主键，先course， 后两张表主键不是自增的
         Course course = dto.getCourse();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object userInfo = redisTemplate.opsForValue().get("userInfo::" + principal);
+        if (userInfo != null) {
+            // System.out.println(obj.getClass()); // cn.xavier.hrm.vo.UserInfo
+            BeanUtils.copyProperties(userInfo, course); // 不需要强转类型也能拷贝成功， 就算是map也可
+        }
         courseMapper.insert(course);
 
         CourseDetail courseDetail = dto.getCourseDetail();

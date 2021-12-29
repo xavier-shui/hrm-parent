@@ -17,10 +17,13 @@ import org.springframework.security.oauth2.provider.code.AuthorizationCodeServic
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import javax.sql.DataSource;
+import java.util.Collections;
 
 //授权服务配置
 @Configuration
@@ -53,7 +56,7 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
 
     // 授权码的管理服务 ,默认读取 oauth_code表
     @Bean
-    public AuthorizationCodeServices authorizationCodeServices(){
+    public AuthorizationCodeServices codeServices(){
         return new JdbcAuthorizationCodeServices(dataSource);
     }
 
@@ -68,13 +71,36 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
         services.setSupportRefreshToken(true);
         //token存储方式
         services.setTokenStore(tokenStore());
+
+        //设置token增强 - 设置token转换器
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Collections.singletonList(jwtAccessTokenConverter()));
+        services.setTokenEnhancer(tokenEnhancerChain);  //jwtAccessTokenConverter()
+
         return services;
     }
 
     //基于内存的Token存储
-    @Bean
+/*    @Bean
     public TokenStore tokenStore(){
         return new InMemoryTokenStore();
+    }*/
+    @Bean
+    public TokenStore tokenStore(){
+        return new JwtTokenStore(jwtAccessTokenConverter());
+    }
+
+    //设置JWT签名密钥。它可以是简单的密钥，也可以是RSA密钥
+    private final String sign_key  = "1";
+
+    //JWT令牌校验工具
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter(){
+        JwtAccessTokenConverter jwtAccessTokenConverter =
+                new JwtAccessTokenConverter();
+        //设置JWT签名密钥。它可以是简单的MAC密钥，也可以是RSA密钥
+        jwtAccessTokenConverter.setSigningKey(sign_key);
+        return jwtAccessTokenConverter;
     }
 
     @Override
@@ -84,11 +110,11 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
                 .authenticationManager(authenticationManager)
                 //2.授权码模式服务
                 // TODO Invalid authorization code
-                .authorizationCodeServices(authorizationCodeServices())
+                .authorizationCodeServices(codeServices())
                 //3.配置令牌管理服务
                 .tokenServices(tokenService())
-                //允许post方式请求
-                .allowedTokenEndpointRequestMethods(HttpMethod.POST);
+                //允许post, get方式请求
+                .allowedTokenEndpointRequestMethods(HttpMethod.POST, HttpMethod.GET);
     }
 
 

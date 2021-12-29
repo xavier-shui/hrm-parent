@@ -25,7 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()   //屏蔽跨域防护
                 .authorizeRequests()          //对请求做授权处理
-                .antMatchers("/login").permitAll()  //登录路径放行
+                .antMatchers("/login", "/loginUser/settlement").permitAll()  //登录路径，入驻路径放行
+                .antMatchers("/swagger-resources/**","/webjars/**","/v2/**","/swagger-ui.html/**").permitAll()  // swagger路径放行
                 .anyRequest().authenticated() //其他路径都要拦截
                 .and().formLogin()  //允许表单登录， 设置登陆页
                 .successForwardUrl("/loginSuccess") // 设置登陆成功页（对应//controller），一定要有loginSuccess这个路径

@@ -82,7 +82,7 @@ public class CourseController {
     * @return PageList 分页对象
     */
     @PostMapping("/list")
-    @PreAuthorize("hasAnyAuthority('employee:list')")
+    @PreAuthorize("hasAnyAuthority('course:list')")
     public PageList<Course> json(@RequestBody CourseQuery query)
     {
         Page<Course> page = new Page<Course>(query.getPage(),query.getRows());
@@ -103,6 +103,7 @@ public class CourseController {
      * @return the ajax result
      */
     @PostMapping("/onlineCourse")
+    @PreAuthorize("hasAuthority('course:onLine')")
     public AjaxResult onlineCourse(@RequestBody List<Long> ids) {
         return courseService.onlineCourse(ids);
     }

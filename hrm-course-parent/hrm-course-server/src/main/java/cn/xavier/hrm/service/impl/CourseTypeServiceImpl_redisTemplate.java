@@ -52,6 +52,7 @@ public class CourseTypeServiceImpl_redisTemplate extends ServiceImpl<CourseTypeM
         // 如果有缓存，从缓存中拿, 结束方法
         Object obj = redisTemplate.opsForValue().get(CourseConstant.COURSE_TYPE);
         if (obj != null) {
+            // System.out.println(obj.getClass());
             log.debug("get data from cache...");
             return AjaxResult.me().setResultObj(obj);
         }

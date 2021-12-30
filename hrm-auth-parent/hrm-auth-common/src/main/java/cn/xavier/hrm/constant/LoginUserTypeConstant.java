@@ -25,4 +25,14 @@ public interface LoginUserTypeConstant {
      * 机构管理员或其他
      */
     Integer TENANT_ADMIN = 5;
+
+    /**
+     * 平台普通员工
+     */
+    Integer ADMIN = 0;
+
+    /**
+     * 平台普通员工
+     */
+    Integer USER = 1;
 }

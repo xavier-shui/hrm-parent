@@ -1,14 +1,17 @@
 package cn.xavier.hrm.controller;
 
-import cn.xavier.hrm.service.ILoginUserService;
 import cn.xavier.hrm.domain.LoginUser;
+import cn.xavier.hrm.dto.LoginDto;
+import cn.xavier.hrm.dto.RefreshTokenDto;
 import cn.xavier.hrm.query.LoginUserQuery;
+import cn.xavier.hrm.service.ILoginUserService;
 import cn.xavier.hrm.util.AjaxResult;
 import cn.xavier.hrm.util.PageList;
 import com.baomidou.mybatisplus.plugins.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,6 +19,28 @@ import java.util.List;
 public class LoginUserController {
     @Autowired
     public ILoginUserService loginUserService;
+
+    /**
+     * 登录
+     *
+     * @param dto dto
+     * @return the ajax result
+     */
+    @PostMapping("/login")
+    public AjaxResult login(@RequestBody @Valid LoginDto dto) {
+        return loginUserService.login(dto);
+    }
+
+    /**
+     * 刷新token
+     *
+     * @param dto dto
+     * @return the ajax result
+     */
+    @PostMapping("/refreshToken")
+    public AjaxResult refreshToken(@RequestBody @Valid RefreshTokenDto dto) {
+        return loginUserService.refreshToken(dto);
+    }
 
     /**
      * 机构入驻

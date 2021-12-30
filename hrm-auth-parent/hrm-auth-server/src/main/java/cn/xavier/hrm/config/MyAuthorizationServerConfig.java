@@ -109,7 +109,6 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
                 //1.密码授权模式需要
                 .authenticationManager(authenticationManager)
                 //2.授权码模式服务
-                // TODO Invalid authorization code
                 .authorizationCodeServices(codeServices())
                 //3.配置令牌管理服务
                 .tokenServices(tokenService())

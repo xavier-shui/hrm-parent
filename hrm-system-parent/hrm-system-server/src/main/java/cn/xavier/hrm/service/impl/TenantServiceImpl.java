@@ -13,8 +13,10 @@ import cn.xavier.hrm.service.ITenantService;
 import cn.xavier.hrm.util.AjaxResult;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,7 +52,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
     }
 
     @Override
-    @Transactional
+    @GlobalTransactional // 被调用方不用加此注解，单需要保证表有主键
     public AjaxResult settlement(SettlementDto dto) {
         // 保存login_user, user_meal, 以后登录时不用再调用system服务
         Employee employee = dto.getEmployee();
@@ -59,8 +61,12 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
         LoginUser loginUser = new LoginUser();
         // username, password, type
         BeanUtils.copyProperties(employee, loginUser);
+        // 密码加密
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        loginUser.setPassword(encoder.encode(loginUser.getPassword()));
         loginUser.setMealId(dto.getMealId());
         AjaxResult result = client.settlement(loginUser);
+        // int i = 1 / 0; 可以回滚loginUser
         // 如果调用成功
         if (result.isSuccess()) {
             // AjaxResult里面的result已由Long变为Interger, 如果是对象会变为LinkedHashMap，因为JSON的传输过程

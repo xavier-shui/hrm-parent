@@ -3,9 +3,8 @@ package cn.xavier.hrm.config;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@EnableTransactionManagement
+// @EnableTransactionManagement
 @Configuration
 public class MybatisPlusConfig {
 

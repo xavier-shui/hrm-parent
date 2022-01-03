@@ -37,8 +37,8 @@
             </if>
         </where>
     </sql>
-
-    <resultMap id="tenantMap" type="Tenant">
+    <!--Could not resolve type alias 'Tenant'-->
+    <resultMap id="tenantMap" type="cn.xavier.hrm.domain.Tenant">
         <id column="id" property="id" />
         <result column="tenant_type_id" property="tenantTypeId" />
         <result column="company_name" property="companyName" />
@@ -48,7 +48,7 @@
         <result column="address" property="address" />
         <result column="logo" property="logo" />
         <result column="admin_id" property="adminId" />
-        <association property="tenantType" javaType="TenantType">
+        <association property="tenantType" javaType="cn.xavier.hrm.domain.TenantType">
             <id column="tid" property="id" />
             <result column="name" property="name"/>
             <result column="description" property="description"/>

@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 public class SystemResourceServerConfig extends BasicResourceServerConfig {
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/tenant/settlement").permitAll(); // 必须放到super的scope前面，先小后大原则
+        http.authorizeRequests().antMatchers("/tenant/settlement", "/tenantType").permitAll(); // 必须放到super的scope前面，先小后大原则
         super.configure(http);
     }
 }

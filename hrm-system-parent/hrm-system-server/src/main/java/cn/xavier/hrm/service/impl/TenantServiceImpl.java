@@ -52,7 +52,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
     }
 
     @Override
-    @GlobalTransactional // 被调用方不用加此注解，单需要保证表有主键
+    @GlobalTransactional // 被调用方不用加此注解，但需要保证表有主键
     public AjaxResult settlement(SettlementDto dto) {
         // 保存login_user, user_meal, 以后登录时不用再调用system服务
         Employee employee = dto.getEmployee();

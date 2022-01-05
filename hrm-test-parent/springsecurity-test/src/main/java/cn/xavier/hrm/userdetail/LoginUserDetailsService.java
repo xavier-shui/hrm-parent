@@ -37,7 +37,7 @@ public class LoginUserDetailsService implements UserDetailsService {
         }
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         List<Permission> permissions = permissionMapper.loadUserPermissions(loginUser.getId());
-        permissions.stream().forEach(permission -> {
+        permissions.forEach(permission -> {
             System.out.println("授权: " + permission);
             // perimission 转 SimpleGrantedAuthority
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(permission.getSn());

@@ -18,7 +18,7 @@ public class SmsLoginFilter extends AbstractAuthenticationProcessingFilter {
     // =====================================================================================
 
     public static final String SPRING_SECURITY_FORM_PHONE_KEY = "phone";
-    public static final String SPRING_SECURITY_FORM_CODE_KEY = "code";
+    public static final String SPRING_SECURITY_FORM_CODE_KEY = "code"; // 已经校验过，可以不要
     private boolean postOnly = true;
 
     // ~ Constructors

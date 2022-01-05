@@ -79,7 +79,7 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                //校验scope必须为all ， 对应认证服务的客户端详情配置的clientId
+                //校验scope必须为hrm ， 对应认证服务的客户端详情配置的clientId
                 .antMatchers("/**").access("#oauth2.hasScope('hrm')")
                 .antMatchers("/swagger-resources/**","/webjars/**","/v2/**","/swagger-ui.html/**").permitAll()  // swagger路径放行
                 //关闭跨域伪造检查

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
+ * 客户端模式获取token
  * @author Zheng-Wei Shui
  * @date 12/29/2021
  */

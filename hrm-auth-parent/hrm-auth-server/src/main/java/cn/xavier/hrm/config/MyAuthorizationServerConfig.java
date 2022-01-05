@@ -121,6 +121,10 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security
+                //对应/oauth/token_key 公开
+                // The tokenKeyAccess() configures access
+                // for the endpoint exposing the public key used for signing JWT tokens.
+                .tokenKeyAccess("permitAll()")
                 //对应/oauth/check_token ，路径公开
                 .checkTokenAccess("permitAll()")
                 //允许客户端进行表单身份验证,使用表单认证申请令牌

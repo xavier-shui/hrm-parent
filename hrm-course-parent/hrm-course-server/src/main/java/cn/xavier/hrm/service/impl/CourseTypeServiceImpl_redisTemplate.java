@@ -88,7 +88,7 @@ public class CourseTypeServiceImpl_redisTemplate extends ServiceImpl<CourseTypeM
 
         } else {
             try {
-                TimeUnit.MILLISECONDS.sleep(20L); // 防止堆栈溢出
+                TimeUnit.MILLISECONDS.sleep(20L); // 防止栈溢出
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

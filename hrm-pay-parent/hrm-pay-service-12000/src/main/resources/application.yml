@@ -1,0 +1,59 @@
+server:
+  port: 11022
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-wait: 2000ms
+        min-idle: 2
+        max-idle: 8
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtualHost: /
+    listener:
+      simple:
+        acknowledge-mode: manual #手动签收
+  application:
+    name: pay-service
+  datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/hrm-pay
+      username: root
+      password: 123456
+      type: com.alibaba.druid.pool.DruidDataSource
+mybatis-plus:
+  type-aliases-package: cn.xavier.hrm.domain,cn.xavier.hrm.query
+  mapper-locations: classpath:cn/xavier/hrm/mapper/*Mapper.xml
+  #mybatisplus 打印sql日志到控制台
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:2010/eureka/
+#  instance:
+#    prefer-ip-address: true  #使用ip注册到Eureka
+#    instance-id: pay-service:12000
+logging:
+  level:
+    cn.xavier: info #指定客户端实例的ID  trace -> debug -> info -> warn ->error
+#feign:
+#  hystrix:
+#    enabled: true
+alibabapay:
+  app-id: "2016092800613550"
+  protocol: "https"
+  gateway-host: "openapi.alipaydev.com"
+  alibaba-public-key: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2ZcowlytU5RZeyLOeR/ScWokb8gCM9HkURMhfR5icUsg69btpK+uxfnrcAejN04cDUMRXGvwTjuLgcnU0LADbMn4Qi08o3mpx3cjMXpYlnxSZb2Bueyil6VsbVQL/fOErjH6wUJ6Mi0H/4zFY/fjAECux4s4VnEGrs75O9WTvdUqHvHYMPBvmtDYBF+ra98/d2DCJ+bjds9Va1QtPbHhNudt9TyUdCjYvfaQA+lgbWPwe22mdrcgIZIC9VGq2QkoQUvBasHZNBwGNI2puActPVuWm9bi9QDJJ/Y9wTORk+KqZwDbGFeZ4XYl0HHQkup/O8MplpO5QTXMldRc/RFs5QIDAQAB"
+  #商户私钥
+  merchant-private-key: "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCWmsERaPzRXEt+M641JjF/sE8Na02sRYgw2/dc+lz7cu/YowjXKY/lfUoN3Wbe3DwecFE/LfsPBnUjTjfh6s1qCbNMDNtp5YueaMrFnpeHMVl/TzVLd2mISbe+GIQj+8tdIDtm8TcNR0va3eNi453ZH5gqbJZP5CnNU4u5YgsWYTElq/XxztJAGccmFvIxPxsQGiTaM+kSy7p8Ku+ci6Nqgj6m4veUZDKvDktwy4jnwZEpiOd5F5sBsQeoEZ7PtNcWtRhzEdN6RE0kpnXv0USMQYUztUXDBjvHZh6qKiey6cSfDsz5o7xdnaHEjC0AfQAnwu2HVgj8EHQZSyOPyG27AgMBAAECggEAeNRIOhOlYsNNvj7wcavm4q8tfXKtqp1OmwSf/XTQzNx2GbUUDqxFyrUuiNktA3hms3UhejMFzhQ8Pssugo7Dp2OI+mcGUnvb/IfOx6ZppAmv6DhAZf+0J6gdRuKcgdIuYtTNU9YLeRfOgBatrFU5+00h5EeigQ5pi1aQL3e9tYGcHdfh4lP6ut224BlJCog7fD9eMgrlQrLoMTIF8kTJ+kfPkU2//qay4w6xih5uGqDU0A79sa1QfREeNAudqXd9drkahhyzU7mrGlTT12xKszTD+lNwEo3+5uiZI67rkTojp4m7+M5HJvOQ+b86UluWv4dTZlC9VbARvr8Q6FG2YQKBgQDtIrBDUsTAPa3r4saBml77vEdMcMDiNg5iTXaSAp5y3qCAcf4v9A2sOAZ4s6IomMN0cWYsWi8OBj2W/Pv7J3GK8iswL5U1rwzBe3TtUOpMvvWQ4nn+8ZMXKlWIvIEyvWSwqkaqsCwvm6xtpQvVvBMM12xiKtqBkoEZ4qQrINxrNQKBgQCildhGHWJ2bboUVemCKCJJ9MB37OuZt1PBhc5KiKOIngYdC3u0k+ZXXZud4SvUOBhZDHu0Pia5X7NrWI9KtZQG4Oigxj8Mcv1wBpipxB5TR2N79zh15jM8+PNfb4n+wRqkbwUm2ewWxYMrc0M/SSMTQdukb+sBjFroo/s9ppajLwKBgQDKdf1r3XTidUbSyNGWwcgqwbtWBkaIXIK3Z0++pcHGbVE3mRvesU4jJcpQr33Zj2QBPPhxEaZvIODg0qoI6spESTKad2W7afNIFjHklFsWn0tmIhbqljJxatGQZvEf8xfOxfKDtNpk41K6YlnSaDsTkbGVtuTMD9tt0FU+BVZrqQKBgF9c1MYLZj1gjsxut9AIClSmol21MVuwFAhmm2FMU99GEP/oRF7egTStSyGHeVW4sU9J6yUFb2E7qNlF0IZZisGeGdRzc3ex2sVimRi6V68xKEEF+K/ung8dVmKb4azzRtU76SGooLmakB1kNgVguJoK/vGsU4NM9+WMiUjX9XMxAoGAbP8Dk2TiR71Q36JX7sW+AtBMRXhwu469McnMbFby9wZT/mUEAMHsnpLaXoOepXtdYzjwJcJ2jG4Irgnwi9v7L44xqMd/xmF8XwXgHiK9QJYlx46QxRdtdUhmnLs8pY5hKcfKTx3oOm7Sct9atEWurZnC9LFhaNYe9bSqYXzwqFI="
+  sign-type: "RSA2"
+  notify-url: "http://dsd83h.natappfree.cc/alipay/notify"
+  return-url: "http://dsd83h.natappfree.cc/alipay/return"

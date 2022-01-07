@@ -51,4 +51,10 @@ public class ValidUtils {
     public static void assertNotNull(Object obj){
         assertNotNull(obj,"不可为空");
     }
+
+    public static void isTrue(boolean b, String msg) {
+        if (!b) {
+            throw new RuntimeException(msg);
+        }
+    }
 }

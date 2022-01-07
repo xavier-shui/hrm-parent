@@ -1,0 +1,49 @@
+server:
+  port: 11020
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+    jedis:
+      pool:
+        max-wait: 2000ms
+        min-idle: 2
+        max-idle: 8
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtualHost: /
+    listener:
+      simple:
+        acknowledge-mode: manual #手动签收
+  application:
+    name: order-service
+  datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/hrm-order?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+      username: root
+      password: 123456
+      type: com.alibaba.druid.pool.DruidDataSource
+mybatis-plus:
+  type-aliases-package: cn.xavier.hrm.domain,cn.xavier.hrm.query
+  mapper-locations: classpath:cn/xavier/hrm/mapper/*Mapper.xml
+  #mybatisplus 打印sql日志到控制台
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:11001/eureka/
+  instance:
+    prefer-ip-address: true  #使用ip注册到Eureka
+    instance-id: order-service:11020
+logging:
+  level:
+    cn.xavier: info #指定客户端实例的ID  trace -> debug -> info -> warn ->error
+feign:
+  hystrix:
+    enabled: true

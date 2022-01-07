@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xavier.hrm.mapper.PayFlowMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.xavier.hrm.domain.PayFlow">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="amount" property="amount" />
+        <result column="pay_type" property="payType" />
+        <result column="relation_id" property="relationId" />
+        <result column="pay_no" property="payNo" />
+        <result column="pay_status" property="payStatus" />
+        <result column="intro" property="intro" />
+        <result column="result_desc" property="resultDesc" />
+        <result column="version" property="version" />
+    </resultMap>
+    <select id="selectByNo" resultMap="BaseResultMap">
+        SELECT *
+        FROM t_pay_flow WHERE pay_no = #{payNo}
+    </select>
+
+</mapper>

@@ -19,6 +19,9 @@
         <module>hrm-search-parent</module>
         <module>hrm-notice-parent</module>
         <module>hrm-user-parent</module>
+        <module>hrm-kill-parent</module>
+        <module>hrm-pay-parent</module>
+        <module>hrm-order-parent</module>
     </modules>
 
     <!--管理一些公共的属性-->
